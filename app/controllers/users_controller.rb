@@ -35,6 +35,10 @@ class UsersController < ApplicationController
   # GET /users/1/edit
   def edit
     @user = User.find(params[:id])
+    respond_to do |format|
+      format.html # new.html.erb
+      format.js { render layout: false }
+    end
   end
 
   # POST /users
@@ -61,6 +65,7 @@ class UsersController < ApplicationController
     respond_to do |format|
       if @user.update_attributes(params[:user])
         format.html { redirect_to @user, notice: 'User was successfully updated.' }
+        format.js { render layout: false }
         format.json { head :no_content }
       else
         format.html { render action: "edit" }
