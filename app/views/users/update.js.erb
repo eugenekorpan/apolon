@@ -1,0 +1,6 @@
+$("#myModal").modal("hide");
+$("tr#<%= "#{@user.id}" %> td.first_name").html('<span><%= "#{@user.first_name}" %> </span>');
+$("tr#<%= "#{@user.id}" %> td.last_name").html('<span><%= "#{@user.last_name}" %> </span>');
+$("tr#<%= "#{@user.id}" %> td.email").html('<span><%= "#{@user.email}" %> </span>');
+$("tr#<%= "#{@user.id}" %> td.job_title").html('<span><%= "#{@user.job_title}" %> </span>');
+$("tr#<%= "#{@user.id}" %> td.age").html('<span><%= "#{@user.age}" %> </span>');
