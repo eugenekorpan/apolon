@@ -1,0 +1,8 @@
+en:
+  views:
+    users:
+      update:
+        editing_user: 'Editing user'
+        close: 'Close'
+        save: 'Save changes'
+        error: 'prohibited this user from being saved:'
