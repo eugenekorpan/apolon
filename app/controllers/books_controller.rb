@@ -1,44 +1,37 @@
 class BooksController < ApplicationController
-  # GET /books
-  # GET /books.json
+  before_filter :book_find, only: [:show, :edit, :update, :destroy]
+
   def index
     @books = Book.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @books }
     end
   end
 
-  # GET /books/1
-  # GET /books/1.json
   def show
-    @book = Book.find(params[:id])
-
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @book }
     end
   end
 
-  # GET /books/new
-  # GET /books/new.json
   def new
     @book = Book.new
-
     respond_to do |format|
-      format.html # new.html.erb
-      format.json { render json: @book }
+      format.html
+      format.json { render json: @users.map(&:full_name) }
     end
   end
 
-  # GET /books/1/edit
   def edit
-    @book = Book.find(params[:id])
+    respond_to do |format|
+      format.html
+      format.json { render json: @users.map(&:full_name) }
+    end
   end
 
-  # POST /books
-  # POST /books.json
   def create
     @book = Book.new(params[:book])
 
@@ -53,11 +46,7 @@ class BooksController < ApplicationController
     end
   end
 
-  # PUT /books/1
-  # PUT /books/1.json
   def update
-    @book = Book.find(params[:id])
-
     respond_to do |format|
       if @book.update_attributes(params[:book])
         format.html { redirect_to @book, notice: 'Book was successfully updated.' }
@@ -69,15 +58,26 @@ class BooksController < ApplicationController
     end
   end
 
-  # DELETE /books/1
-  # DELETE /books/1.json
   def destroy
-    @book = Book.find(params[:id])
     @book.destroy
 
     respond_to do |format|
       format.html { redirect_to books_url }
       format.json { head :no_content }
     end
+  end
+
+  def auto_complete
+    @users = User.where("first_name LIKE ? or last_name LIKE ?", "%#{params[:term]}%" , "%#{params[:term]}%")
+    result = @users.collect do |t|
+      { value: t.full_name }
+    end
+    render json: result
+  end
+
+  private
+
+  def book_find
+    @book = Book.find(params[:id])
   end
 end
