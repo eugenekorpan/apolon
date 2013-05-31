@@ -1,0 +1,5 @@
+en:
+  controllers:
+    users:
+      update:
+        successfully: 'User was successfully updated.'

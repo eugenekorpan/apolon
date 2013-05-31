@@ -1,0 +1,2 @@
+$("#myModal").modal("hide");
+$('tr#<%= "user_#{@user.id}" %>').html(' <%= j(render partial: 'users/row', locals: { user: @user }) %> ');
