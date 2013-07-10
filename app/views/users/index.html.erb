@@ -1,6 +1,6 @@
 <h1>Listing users</h1>
 
-<table border=1 cellspacing=0 cellpadding=3>
+<table id="table" border=1 cellspacing=0 cellpadding=3>
   <tr>
     <th>#</th>
     <th>First name</th>
@@ -22,7 +22,7 @@
     <td><%= user.job_title %></td>
     <td><%= user.age %></td>
     <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Edit', edit_user_path(user), :data => { :toggle => "modal", :target => "#edit_user"},  :remote => :true %></td>
     <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
@@ -31,3 +31,9 @@
 <br />
 
 <%= link_to 'New User', new_user_path %>
+
+<div id="edit_user" class="modal hide fade" >
+    <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
+    <h3 id="myModalLabel">Створення нової книги</h3>
+  </div>

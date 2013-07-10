@@ -1,6 +1,7 @@
 class BooksController < ApplicationController
   # GET /books
   # GET /books.json
+  auto_complete_for :book, :user_name
   def index
     @books = Book.all
 

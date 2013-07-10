@@ -13,11 +13,11 @@
 
   <div class="field">
     <%= f.label :title %><br />
-    <%= f.text_field :title %>
+    <%=  f.text_field :title %>
   </div>
   <div class="field">
-    <%= f.label :user_id, 'Author' %><br />
-    <%= f.text_field :user_id %>
+    <%= f.label :user_name, 'Author' %><br />
+     <%= text_field_with_auto_complete :book, :user_name %>
   </div>
   <div class="actions">
     <%= f.submit %>
