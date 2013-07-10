@@ -1,44 +1,37 @@
 class BooksController < ApplicationController
-  # GET /books
-  # GET /books.json
+  autocomplete :user, :first_name
+
   def index
     @books = Book.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @books }
     end
   end
 
-  # GET /books/1
-  # GET /books/1.json
   def show
     @book = Book.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @book }
     end
   end
 
-  # GET /books/new
-  # GET /books/new.json
   def new
     @book = Book.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @book }
     end
   end
 
-  # GET /books/1/edit
   def edit
     @book = Book.find(params[:id])
   end
 
-  # POST /books
-  # POST /books.json
   def create
     @book = Book.new(params[:book])
 
@@ -53,8 +46,6 @@ class BooksController < ApplicationController
     end
   end
 
-  # PUT /books/1
-  # PUT /books/1.json
   def update
     @book = Book.find(params[:id])
 
@@ -69,8 +60,6 @@ class BooksController < ApplicationController
     end
   end
 
-  # DELETE /books/1
-  # DELETE /books/1.json
   def destroy
     @book = Book.find(params[:id])
     @book.destroy
