@@ -1,19 +1,6 @@
 <% if @success %>
 	$('#user_edit').modal('hide');
-	$('#users_table #<%= @user.id %> td').each(function(index) {
-		if(index != 0 && index != 6 && index != 7 && index != 8) { $(this).empty(); }
-
-		switch(index) {
-			case 1:
-				$(this).append('<%= @user.first_name %>'); break;
-			case 2:
-				$(this).append('<%= @user.last_name %>'); break;
-			case 3:
-				$(this).append('<%= @user.email %>'); break;
-			case 4:
-				$(this).append('<%= @user.job_title %>'); break;
-			case 5:
-				$(this).append('<%= @user.age %>'); break;
-		}
-	});
+	var index = $('#users_table #<%= @user.id %> td').first().text();
+	$('#users_table #<%= @user.id %>').replaceWith("<%= j render partial: 'user', locals: { user: @user, user_counter: 0 } %>");
+	$('#users_table #<%= @user.id %> td').first().text(index);
 <% end %>
