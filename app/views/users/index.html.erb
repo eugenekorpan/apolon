@@ -1,6 +1,6 @@
 <h1>Listing users</h1>
 
-<table border=1 cellspacing=0 cellpadding=3>
+<table border=1 cellspacing=0 cellpadding=3 id='users_table'>
   <tr>
     <th>#</th>
     <th>First name</th>
@@ -14,7 +14,7 @@
   </tr>
 
 <% @users.each_with_index do |user, index| %>
-  <tr>
+  <tr id='<%= user.id %>'>
     <td><%= index+1 %></td>
     <td><%= user.first_name %></td>
     <td><%= user.last_name %></td>
@@ -22,7 +22,7 @@
     <td><%= user.job_title %></td>
     <td><%= user.age %></td>
     <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
+    <td><%= link_to 'Edit', edit_user_path(user), remote: true, data: { toggle: "modal", target: '#user_edit' } %></td>
     <td><%= link_to 'Destroy', user, method: :delete, data: { confirm: 'Are you sure?' } %></td>
   </tr>
 <% end %>
@@ -31,3 +31,5 @@
 <br />
 
 <%= link_to 'New User', new_user_path %>
+
+<div id='user_edit' class='modal hide fade'></div>
