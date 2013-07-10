@@ -1,0 +1,6 @@
+<% if @success %>
+	$('#user_edit').modal('hide');
+	var index = $('#users_table #<%= @user.id %> td').first().text();
+	$('#users_table #<%= @user.id %>').replaceWith("<%= j render partial: 'user', locals: { user: @user, user_counter: 0 } %>");
+	$('#users_table #<%= @user.id %> td').first().text(index);
+<% end %>
