@@ -1,9 +1,9 @@
 class BooksController < ApplicationController
   # GET /books
   # GET /books.json
+
   def index
     @books = Book.all
-
     respond_to do |format|
       format.html # index.html.erb
       format.json { render json: @books }
@@ -25,6 +25,7 @@ class BooksController < ApplicationController
   # GET /books/new.json
   def new
     @book = Book.new
+    @users = User.all.map(&:first_name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -40,8 +41,10 @@ class BooksController < ApplicationController
   # POST /books
   # POST /books.json
   def create
-    @book = Book.new(params[:book])
-
+    @book = Book.new
+    @book.title = params[:user][:title]
+    @book.user_id = User.where("first_name = ?", params[:user][:first_name]).first.id
+    @book.save
     respond_to do |format|
       if @book.save
         format.html { redirect_to @book, notice: 'Book was successfully created.' }

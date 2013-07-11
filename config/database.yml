@@ -1,0 +1,15 @@
+development:
+  adapter: mysql2
+  database: apolon_dev
+  username: root
+  password: root
+  pool: 5
+  timeout: 5000
+
+test:
+  adapter: mysql2
+  database: apolon_test
+  username: root
+  password: root
+  pool: 5
+  timeout: 5000
