@@ -1,6 +1,4 @@
 class BooksController < ApplicationController
-  autocomplete :user, :first_name
-
   def index
     @books = Book.all
 

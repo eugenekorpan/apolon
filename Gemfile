@@ -5,7 +5,6 @@ gem 'mysql2'
 gem 'jquery-rails'
 gem 'thin'
 gem 'twitter-bootstrap-rails'
-gem 'rails3-jquery-autocomplete'
 
 group :assets do
   gem 'sass-rails',   '~> 3.2.3'
