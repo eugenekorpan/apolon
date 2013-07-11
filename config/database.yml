@@ -1,7 +1,7 @@
 development:
   adapter: mysql2
   database: apolon_dev
-  username: root
+  username: fork
   password: password
   pool: 5
   timeout: 5000
@@ -9,7 +9,7 @@ development:
 test:
   adapter: mysql2
   database: apolon_test
-  username: root
+  username: fork
   password: password
   pool: 5
   timeout: 5000

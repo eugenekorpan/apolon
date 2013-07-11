@@ -1,45 +1,38 @@
 class BooksController < ApplicationController
-  # GET /books
-  # GET /books.json
   def index
     @books = Book.all
 
     respond_to do |format|
-      format.html # index.html.erb
+      format.html
       format.json { render json: @books }
     end
   end
 
-  # GET /books/1
-  # GET /books/1.json
   def show
     @book = Book.find(params[:id])
 
     respond_to do |format|
-      format.html # show.html.erb
+      format.html
       format.json { render json: @book }
     end
   end
 
-  # GET /books/new
-  # GET /books/new.json
   def new
     @book = Book.new
 
     respond_to do |format|
-      format.html # new.html.erb
+      format.html
       format.json { render json: @book }
     end
   end
 
-  # GET /books/1/edit
   def edit
     @book = Book.find(params[:id])
   end
 
-  # POST /books
-  # POST /books.json
   def create
+    params[:book][:user_id] = get_user_id(params[:book][:user_id])
+
     @book = Book.new(params[:book])
 
     respond_to do |format|
@@ -53,9 +46,9 @@ class BooksController < ApplicationController
     end
   end
 
-  # PUT /books/1
-  # PUT /books/1.json
   def update
+    params[:book][:user_id] = get_user_id(params[:book][:user_id])
+
     @book = Book.find(params[:id])
 
     respond_to do |format|
@@ -69,8 +62,6 @@ class BooksController < ApplicationController
     end
   end
 
-  # DELETE /books/1
-  # DELETE /books/1.json
   def destroy
     @book = Book.find(params[:id])
     @book.destroy
@@ -78,6 +69,26 @@ class BooksController < ApplicationController
     respond_to do |format|
       format.html { redirect_to books_url }
       format.json { head :no_content }
+    end
+  end
+
+  def auto_complete
+    @users = User.find_by_partial_name(params[:data]).map { |user| user.full_name }
+  end
+
+private
+  
+  def parse_user_name(str)
+    Integer(str)
+  rescue
+    str
+  end
+
+  def get_user_id(user)
+    if parse_user_name(user).is_a? Numeric
+      user
+    else
+      User.find_by_full_name(user.split(' ')).first.id
     end
   end
 end
