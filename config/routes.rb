@@ -1,5 +1,7 @@
 Apolon::Application.routes.draw do
-  resources :books
+  resources :books do 
+  	get :auto_complete, on: :collection
+  end
 	get 'books/autocomplete_user_name'
 
   resources :users

@@ -25,7 +25,7 @@ class BooksController < ApplicationController
   # GET /books/new.json
   def new
     @book = Book.new
-    @users = User.all.map(&:first_name)
+    #@users = User.all.map(&:first_name)
 
     respond_to do |format|
       format.html # new.html.erb
@@ -42,8 +42,9 @@ class BooksController < ApplicationController
   # POST /books.json
   def create
     @book = Book.new
-    @book.title = params[:user][:title]
-    @book.user_id = User.where("first_name = ?", params[:user][:first_name]).first.id
+    @book.title = params[:book][:title]
+    #@book.user_id = params[:book][:user_id]
+    @book.user_id = User.where("first_name + ' ' + last_name = ?", params[:book][:user_id]).first.id
     @book.save
     respond_to do |format|
       if @book.save
@@ -83,4 +84,14 @@ class BooksController < ApplicationController
       format.json { head :no_content }
     end
   end
+
+
+  def auto_complete
+    @users = User.where("first_name LIKE ? or last_name LIKE ?", "%#{params[:term]}%" , "%#{params[:term]}%")
+    result = @users.collect do |t|
+      { value: t.full_name }
+    end
+    render json: result
+  end
+
 end
