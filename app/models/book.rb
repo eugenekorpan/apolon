@@ -6,4 +6,9 @@ class Book < ActiveRecord::Base
   def user_name
     user.full_name if user
   end
+
+  def funky_method
+    "#{self.user_name}.camelize"
+  end
+
 end
