@@ -6,6 +6,7 @@ class User < ActiveRecord::Base
 
   has_many :books
 
+  scope :find_by_partial_name, ->(name) { where("first_name LIKE ? OR last_name LIKE ?", "%#{name}%", "%#{name}%") }
   scope :find_by_full_name, ->(name) { where("first_name='#{name[0]}' AND last_name='#{name[1]}'") }
 
   def full_name

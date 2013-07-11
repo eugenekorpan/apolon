@@ -17,7 +17,7 @@
   </div>
   <div class="field">
     <%= f.label :user_id, 'Author' %><br />
-    <%= f.text_field :user_id, data: { source: @users, items: "4", minLength: "3", provide: "typeahead" }, autocomplete: 'off', value: @book.user_name %>
+    <%= f.text_field :user_id, id: 'book_user_id', autocomplete: 'off', value: @book.user_name %>
   </div>
   <div class="actions">
     <%= f.submit %>
