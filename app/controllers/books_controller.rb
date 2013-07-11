@@ -21,6 +21,7 @@ class BooksController < ApplicationController
 
   def new
     @book = Book.new
+    @users = User.all.map { |user| user.full_name }
 
     respond_to do |format|
       format.html
@@ -30,9 +31,15 @@ class BooksController < ApplicationController
 
   def edit
     @book = Book.find(params[:id])
+    @users = User.all.map { |user| user.full_name }
   end
 
   def create
+    user = parse_user_name(params[:book][:user_id])
+    unless user.is_a? Numeric
+      params[:book][:user_id] = User.find_by_full_name(user).first.id
+    end
+
     @book = Book.new(params[:book])
 
     respond_to do |format|
@@ -47,6 +54,11 @@ class BooksController < ApplicationController
   end
 
   def update
+    user = parse_user_name(params[:book][:user_id])
+    unless user.is_a? Numeric
+      params[:book][:user_id] = User.find_by_full_name(user).first.id
+    end
+    
     @book = Book.find(params[:id])
 
     respond_to do |format|
@@ -68,5 +80,13 @@ class BooksController < ApplicationController
       format.html { redirect_to books_url }
       format.json { head :no_content }
     end
+  end
+
+private
+
+  def parse_user_name(str)
+    Integer(str)
+  rescue
+    str.split(' ')
   end
 end
